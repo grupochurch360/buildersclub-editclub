@@ -1,6 +1,16 @@
 (() => {
   const story = document.querySelector('.story');
   const video = story.querySelector('video.shot');
+  function loadHeaderVideo() {
+    if (video.getAttribute('src')) return;
+    video.preload = 'auto';
+    video.src = matchMedia('(max-width:760px)').matches
+      ? 'assets/cabecalho-mobile-web.mp4' : video.dataset.src;
+    video.load();
+  }
+  if (document.querySelector('.scanner')?.open) {
+    addEventListener('editclub:intro-complete', loadHeaderVideo, {once:true});
+  } else loadHeaderVideo();
   const marks = [...story.querySelectorAll('.story-track span')];
   const ribbon = document.createElement('div');
   ribbon.className = 'edit-ribbon';

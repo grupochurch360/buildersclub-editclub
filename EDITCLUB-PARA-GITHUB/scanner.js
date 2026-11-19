@@ -162,6 +162,7 @@
     if(soundSource) soundSource.stop();
     if(audio) audio.close().catch(()=>{});
     visor.close();
+    dispatchEvent(new Event('editclub:intro-complete'));
   }
   function unlock(event) {
     if (!event.isTrusted || closed || event.target?.closest?.('[data-skip]')) return;
@@ -193,7 +194,7 @@
   }
   video.addEventListener('playing',startSoundtrack);
   video.style.pointerEvents='none';
-  video.src=mobileIntro ? 'motions-editor/editor-carregamento-mobile.mp4' : video.dataset.src;
+  video.src=mobileIntro ? 'assets/entrada-mobile-web.mp4' : video.dataset.src;
   video.muted=true;
   video.play().catch(close);
   draw();
