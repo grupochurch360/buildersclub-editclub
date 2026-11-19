@@ -23,13 +23,15 @@
   const flow = document.querySelector('.start-flow');
   let targetTime = 0;
   function seekFrame() {
-    if (video.readyState < 2 || video.seeking) return;
+    if (video.readyState < 1 || video.seeking) return;
     if (Math.abs(video.currentTime - targetTime) < 1 / 480) return;
     video.currentTime = targetTime;
   }
   // Finish the current decode before requesting the latest scroll position.
   video.addEventListener('seeked', seekFrame);
   video.addEventListener('loadeddata', schedule);
+  video.addEventListener('loadedmetadata', schedule);
+  video.addEventListener('canplay', seekFrame);
   const clamp = value => Math.min(1, Math.max(0, value));
   const ease = value => value * value * (3 - 2 * value);
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -49,7 +51,7 @@
       ? 0
       : Math.min(1, Math.max(0, (stickyTop - story.getBoundingClientRect().top) / travel));
     if (Number.isFinite(video.duration)) {
-      targetTime = progress * Math.max(0, video.duration - 1 / 120);
+      targetTime = Math.max(.001, progress * Math.max(0, video.duration - 1 / 120));
       seekFrame();
     }
     const position = progress * marks.length;

@@ -166,6 +166,9 @@
   }
   function unlock(event) {
     if (!event.isTrusted || closed || event.target?.closest?.('[data-skip]')) return;
+    if (video.paused && !video.ended) {
+      video.play().catch(error => {if (error.name !== 'NotAllowedError') close();});
+    }
     if (navigator.userActivation && !navigator.userActivation.isActive) return;
     if (audio?.state === 'suspended') audio.resume().then(startSoundtrack).catch(()=>{});
     else startSoundtrack();
@@ -195,7 +198,14 @@
   video.addEventListener('playing',startSoundtrack);
   video.style.pointerEvents='none';
   video.src=mobileIntro ? 'assets/entrada-mobile-web.mp4' : video.dataset.src;
+  video.defaultMuted=true;
   video.muted=true;
-  video.play().catch(close);
+  video.playsInline=true;
+  video.setAttribute('muted','');
+  video.play().catch(error => {
+    if (error.name === 'NotAllowedError') {
+      lock.textContent='Toque no visor';
+    } else close();
+  });
   draw();
 })();
