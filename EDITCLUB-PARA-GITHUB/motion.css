@@ -1,0 +1,85 @@
+html{scroll-padding-top:calc(var(--header-height,67px) + 18px)}
+header{position:sticky;top:0;z-index:5;background:#080f20f5;backdrop-filter:blur(14px)}
+.story{position:relative;height:750svh;background:#080f20}
+.hero{position:sticky;top:var(--header-height,67px);height:calc(100svh - var(--header-height,67px));min-height:0;padding:0;background:#080f20;display:flex;align-items:center}
+.shots,.shot,.shade{position:absolute;inset:0}
+.shots{overflow:hidden;background:radial-gradient(ellipse at 74% 38%,#102541,#080f20 65%)}
+.shot{width:100%;height:100%;object-fit:cover;object-position:var(--focus,78%) top;opacity:0}
+.shot:first-child{opacity:1}
+.shade{background:linear-gradient(90deg,#080f20 1%,#080f20e8 20%,#080f2077 47%,transparent 75%),linear-gradient(0deg,#080f20 0%,transparent 25%)}
+.intro{margin-left:7vw;max-width:min(540px,53%);pointer-events:auto}
+.intro h1{font-size:clamp(58px,9vw,142px);margin:10px 0 16px}
+.intro h2{font-size:clamp(30px,4vw,66px)}
+.intro p{max-width:37ch}
+.intro .club{color:#9fd0ff}
+.story-track{position:absolute;bottom:24px;left:7vw;right:7vw;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;font-size:12px;color:#c5d7ed}
+.story-track span{border-top:2px solid #47607e;padding-top:8px}
+.story-track span{position:relative}
+.story-track span::before{content:'';position:absolute;inset:-2px 0 auto;height:2px;background:#00d9ed;transform:scaleX(var(--played,0));transform-origin:left}
+.story-track .current{border-color:#00d9ed;color:white}
+.start-flow{display:grid;grid-template-columns:1.2fr repeat(3,1fr);padding:30px 6vw;gap:24px;background:#101d34;border-top:1px solid #335782}
+.start-flow h2{font-size:18px}
+.start-flow p{font-size:13px;color:#c4d3e9}
+.start-flow p{position:relative;border-top:1px solid #3a5271;padding:13px 0 0}
+.start-flow p::before{content:'';position:absolute;top:-1px;left:0;width:100%;height:2px;background:linear-gradient(90deg,#164dff,#00d9ed);transform-origin:left;transform:scaleX(var(--step-played,1))}
+.start-flow strong{display:block;color:white;margin-bottom:3px}
+#library{padding-top:70px}
+.workspace{gap:16px;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr)}
+#list{background:#0b1325;border:1px solid #293a55;border-radius:14px;max-height:560px}
+.row{min-height:54px}
+#detail{background:linear-gradient(150deg,#172b48,#101c31 65%);border-radius:14px;min-height:330px}
+#detail textarea{background:#0b1629;line-height:1.65}
+.shortcuts{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.shortcuts button{border:1px solid #41567b;border-radius:7px;background:#142441;padding:8px 11px;font-size:12px}
+.shortcuts button:hover{background:#21406b}
+.primary,.open,.shortcuts button,#tabs button,.row{transition:background-color 180ms ease,border-color 180ms ease,box-shadow 180ms ease}
+.primary:active,.shortcuts button:active{transform:translateY(1px)}
+.row[aria-current="true"]{box-shadow:inset 4px 0 #6caeff}
+.row:focus-visible{outline-offset:-4px}
+#detail{position:relative}
+#detail::before{content:'';position:absolute;left:1rem;right:1rem;top:0;height:1px;background:linear-gradient(90deg,#6caeff,transparent 85%)}
+#detail [role=status]{min-height:1.5em}
+@media(max-width:760px){
+ .story{height:650svh}
+ .hero{align-items:flex-end;padding-bottom:68px}
+ .intro{margin-left:5vw;max-width:90%}
+ .intro h1{font-size:clamp(52px,13vw,85px);margin:6px 0}
+ .intro h2{font-size:clamp(23px,6vw,36px)}
+ .intro p{margin:8px 0 16px}
+ .shade{background:linear-gradient(0deg,#080f20 4%,#080f20eb 29%,#080f2060 57%,transparent 85%)}
+ .story-track{left:5vw;right:5vw;bottom:14px;font-size:10px;gap:7px}
+ .start-flow{grid-template-columns:1fr 1fr;gap:14px;padding:22px 5vw}
+ .workspace{grid-template-columns:1fr}
+ #list{max-height:224px}
+ #library{padding-top:34px}
+}
+@media(max-height:620px){
+ header{position:relative}
+ .story{height:calc(580svh + 470px)}
+ .hero{min-height:480px;top:0}
+ .intro h1{font-size:clamp(45px,8vw,92px)}
+ .intro h2{font-size:clamp(22px,3.4vw,38px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .story{height:auto}
+ .hero{position:relative;top:0;height:auto;min-height:580px}
+ .story-track{display:none}
+ .shot{transform:none!important}
+ .primary,.open,.shortcuts button,#tabs button,.row{transition:none}
+}
+
+
+.edit-ribbon {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding: .38em 0;
+  background: #164dff;
+  color: white;
+  transform: skewY(-1deg);
+  font-size: clamp(20px, 2.2vw, 48px);
+  line-height: 1.2;
+  font-weight: 750;
+  letter-spacing: -.04em;
+}
+.edit-ribbon span { display: block; width: max-content; white-space: pre; }
